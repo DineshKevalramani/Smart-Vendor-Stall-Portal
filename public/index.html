@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Vendor Stall Portal</title>
+    <style>
+        :root {
+            --primary: #2D3C59;
+            --bg: #ffffff;
+            --text: #1f2a3d;
+            --muted: #667085;
+            --border: #d9e0ea;
+            --surface: #f7f9fc;
+            --shadow: 0 18px 50px rgba(45, 60, 89, 0.10);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #ffffff;
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .container {
+            width: min(1120px, 100%);
+            display: grid;
+            grid-template-columns: 1.1fr 0.95fr;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .welcome-panel {
+            padding: 42px 44px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: #fff;
+        }
+
+        .logo-box {
+            margin-bottom: 20px;
+        }
+
+        .logo-box img {
+            width: min(100%, 520px);
+            height: auto;
+            display: block;
+        }
+
+        .welcome-title {
+            margin: 0 0 14px;
+            font-size: clamp(2rem, 3vw, 3.3rem);
+            line-height: 1.05;
+            color: var(--primary);
+        }
+
+        .lead {
+            margin: 0 0 24px;
+            font-size: 1.02rem;
+            line-height: 1.7;
+            color: var(--muted);
+            max-width: 55ch;
+        }
+
+        .highlights {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            gap: 12px;
+        }
+
+        .highlights li {
+            padding: 14px 16px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            border-radius: 14px;
+            font-size: 0.97rem;
+            line-height: 1.55;
+        }
+
+        .auth-panel {
+            background: var(--primary);
+            padding: 36px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card {
+            width: min(420px, 100%);
+            background: #fff;
+            border-radius: 22px;
+            padding: 28px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.16);
+        }
+
+        .toggle {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: #eef2f7;
+            border-radius: 14px;
+            padding: 6px;
+            gap: 6px;
+            margin-bottom: 22px;
+        }
+
+        .toggle button {
+            border: none;
+            border-radius: 10px;
+            padding: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            color: var(--primary);
+            background: transparent;
+            font-size: 0.98rem;
+        }
+
+        .toggle button.active {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .panel {
+            display: none;
+        }
+
+        .panel.active {
+            display: block;
+        }
+
+        h2 {
+            margin: 0 0 8px;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .subtext {
+            margin: 0 0 20px;
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        form {
+            display: grid;
+            gap: 14px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.92rem;
+            font-weight: 700;
+            margin-bottom: 7px;
+            color: var(--primary);
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            font-size: 0.96rem;
+            outline: none;
+            background: #fff;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(45, 60, 89, 0.12);
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        .btn {
+            border: none;
+            padding: 14px 18px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            background: var(--primary);
+            color: #fff;
+            margin-top: 4px;
+        }
+
+        .success-box {
+            display: none;
+            margin-top: 18px;
+            padding: 14px 16px;
+            border-radius: 12px;
+            background: #edf4ff;
+            border: 1px solid #c8d7f0;
+            color: var(--primary);
+            font-weight: 700;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 920px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome-panel {
+                padding: 30px 24px 18px;
+            }
+
+            .auth-panel {
+                padding: 18px 18px 26px;
+            }
+
+            .logo-box img {
+                width: min(100%, 440px);
+            }
+        }
+
+        @media (max-width: 560px) {
+            body {
+                padding: 14px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .welcome-title {
+                font-size: 1.8rem;
+            }
+
+            .logo-box img {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+        <!-- Navbar -->
+        <nav
+            style="grid-column: 1 / -1; display: flex; justify-content: flex-end; padding: 15px 30px; border-bottom: 1px solid var(--border); gap: 20px; background: #fafbfc;">
+            <a href="index.html"
+                style="color: var(--primary); text-decoration: none; font-weight: 600; font-size: 0.9rem;">Home</a>
+            <a href="user-dashboard.html"
+                style="color: var(--primary); text-decoration: none; font-weight: 600; font-size: 0.9rem;">Dashboard</a>
+            <a href="#"
+                style="color: var(--primary); text-decoration: none; font-weight: 600; font-size: 0.9rem;">Help</a>
+        </nav>
+        <!-- Left welcome section -->
+        <section class="welcome-panel">
+            <div class="logo-box">
+                <img src="images/Logo.png" alt="Smart Vendor Stall Portal Logo" />
+            </div>
+            <h1 class="welcome-title">Welcome</h1>
+            <p class="lead">
+                A centralized portal for vendor registration, zone allocation, stall access, and employee management.
+            </p>
+            <ul class="highlights">
+                <li>New vendors can sign in and begin the registration process.</li>
+                <li>Employees can log in to manage official vendor and stall operations.</li>
+            </ul>
+        </section>
+
+        <!-- Right auth section -->
+        <section class="auth-panel">
+            <div class="card">
+                <div class="toggle">
+                    <button id="loginTab" class="active" type="button">Login</button>
+                    <button id="signupTab" type="button">Sign up</button>
+                </div>
+
+                <!-- Login panel -->
+                <div id="loginPanel" class="panel active">
+                    <h2>Welcome back</h2>
+                    <p class="subtext">Login to continue to the Smart Vendor Stall Portal.</p>
+
+                    <form id="loginForm">
+                        <div id="loginError"
+                            style="color: #e63946; font-size: 0.85rem; margin-bottom: 10px; font-weight: 600;"></div>
+                        <div>
+                            <label for="empId">Employee ID</label>
+                            <input type="text" id="empId" placeholder="Enter Employee ID" required />
+                        </div>
+                        <div>
+                            <label for="password">Password</label>
+                            <input type="password" id="password" placeholder="Enter Password" required />
+                        </div>
+                        <button type="submit" class="btn">Login</button>
+                    </form>
+                </div>
+
+                <!-- Signup panel -->
+                <div id="signupPanel" class="panel">
+                    <h2>New user registration</h2>
+                    <p class="subtext">
+                        Fill in your details to create an employee account for the Smart Vendor Stall Portal.
+                    </p>
+
+                    <form id="signupForm">
+                        <div>
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" name="firstName" placeholder="Enter First Name"
+                                required />
+                        </div>
+
+                        <div>
+                            <label for="middleName">Middle Name (Optional)</label>
+                            <input type="text" id="middleName" name="middleName"
+                                placeholder="Enter Middle Name (Optional)" />
+                        </div>
+
+                        <div>
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" placeholder="Enter Last Name" required />
+                        </div>
+
+                        <div>
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="Enter Email Address" required />
+                        </div>
+
+                        <div>
+                            <label for="dob">Date of Birth</label>
+                            <input type="date" id="dob" name="dob" required />
+                        </div>
+
+                        <div>
+                            <label for="idType">ID Type</label>
+                            <select id="idType" name="idType" required>
+                                <option value="">Select ID Type</option>
+                                <option value="aadhaar">Aadhaar Card</option>
+                                <option value="pan">PAN Card</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="idNumber">ID Number</label>
+                            <input type="text" id="idNumber" name="idNumber" placeholder="Enter ID Number" required />
+                        </div>
+
+                        <div>
+                            <label for="idProof">Upload ID Proof (PDF, max 100 MB)</label>
+                            <input type="file" id="idProof" name="idProof" accept="application/pdf" required />
+                        </div>
+
+                        <div>
+                            <label for="workDescription">Work Description (max 500 words)</label>
+                            <textarea id="workDescription" name="workDescription" rows="5"
+                                placeholder="Describe your work...." maxlength="500"></textarea>
+                        </div>
+
+                        <div>
+                            <label for="preferredShift">Preferred Shifts</label>
+                            <select id="preferredShift" name="preferredShift" required>
+                                <option value="">Select Shift</option>
+                                <option value="morning">Morning</option>
+                                <option value="evening">Evening</option>
+                                <option value="both">Both</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="preferredZones">Preferred Zone</label>
+                            <select id="preferredZones" name="preferredZones" required>
+                                <option value="">Select Zone</option>
+                                <option value="zone-a">Zone A</option>
+                                <option value="zone-b">Zone B</option>
+                                <option value="zone-c">Zone C</option>
+                                <option value="zone-d">Zone D</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="staffSize">Staff Size</label>
+                            <input type="number" id="staffSize" name="staffSize" min="1"
+                                placeholder="Enter number of staff" />
+                        </div>
+
+                        <button type="submit" class="btn">Register</button>
+                    </form>
+                </div>
+
+                <div id="authMessage" class="success-box"></div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/app.js"></script>
+    <script>
+        const loginTab = document.getElementById("loginTab");
+        const signupTab = document.getElementById("signupTab");
+        const loginPanel = document.getElementById("loginPanel");
+        const signupPanel = document.getElementById("signupPanel");
+        const authMessage = document.getElementById("authMessage");
+
+        function showLogin() {
+            loginTab.classList.add("active");
+            signupTab.classList.remove("active");
+            loginPanel.classList.add("active");
+            signupPanel.classList.remove("active");
+        }
+
+        function showSignup() {
+            signupTab.classList.add("active");
+            loginTab.classList.remove("active");
+            signupPanel.classList.add("active");
+            loginPanel.classList.remove("active");
+        }
+
+        loginTab.addEventListener("click", showLogin);
+        signupTab.addEventListener("click", showSignup);
+
+        document.addEventListener("DOMContentLoaded", showLogin);
+
+        document.addEventListener("DOMContentLoaded", showLogin);
+    </script>
+</body>
+
+</html>

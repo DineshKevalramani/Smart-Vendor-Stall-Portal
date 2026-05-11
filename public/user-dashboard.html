@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Dashboard | Smart Vendor Stall Portal</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/xml.css" />
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-left">
+            <a href="index.html" style="text-decoration: none; font-size: 0.9rem; color: var(--muted); margin-right: 15px;">&larr; Home</a>
+            <span class="topbar-title">Dashboard</span>
+        </div>
+        <div class="topbar-right">
+            <div class="topbar-info">
+                <span class="info-pill">Zone: A</span>
+                <span class="info-pill">Emp ID: 3421</span>
+            </div>
+            <div class="profile-dropdown">
+                <div class="profile-avatar" id="profileAvatar">
+                    <img src="profile.png" alt="User Profile" />
+                </div>
+                <div class="dropdown-menu" id="profileMenu">
+                    <a href="profile.html">Profile View</a>
+                    <a href="settings.html?tab=account">Account Management</a>
+                    <a href="settings.html?tab=notifications">Notifications</a>
+                    <a href="settings.html?tab=privacy">Privacy & Data</a>
+                    <a href="settings.html?tab=security">Security</a>
+                    <a href="help-center.html">Help Center</a>
+                    <a href="legal.html?type=tos">Terms of Services</a>
+                    <a href="legal.html?type=privacy">Privacy Policy</a>
+                    <a href="legal.html?type=about">About</a>
+                    <a href="#" id="logoutLink">Log Out</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="dashboard">
+        <div class="left-column">
+            <section class="card" id="stallSection">
+                <div class="card-header">
+                    <h2 class="card-title">Active Stall Details</h2>
+                    <p class="card-sub">Current stall you have checked in to</p>
+                </div>
+                <div class="stall-card" id="stallCard">
+                    <div class="stall-name">Loading stall details...</div>
+                    <div class="stall-meta">---</div>
+                    <div class="stall-equipment-title">Equipment Available</div>
+                    <ul class="equipment-list">
+                        <li>---</li>
+                    </ul>
+                </div>
+                <!-- Manual Stall Input Form (Hidden by default) -->
+                <div id="manualStallInput" style="display: none; margin-top: 20px;">
+                    <h3 style="font-size: 0.9rem; color: var(--primary);">Manual Stall Check-in</h3>
+                    <form id="stallInputForm" style="display: grid; gap: 10px; margin-top: 10px;">
+                        <input type="text" id="manualStallId" placeholder="Enter Stall ID (e.g. A-05)" required style="padding: 8px; border-radius: 8px; border: 1px solid var(--border);" />
+                        <button class="btn" type="submit">Check-in to Stall</button>
+                    </form>
+                </div>
+            </section>
+            <section class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Scan & Attendance</h2>
+                    <p class="card-sub">Scan to check-in / check-out from your stall</p>
+                </div>
+                <div class="scan-actions">
+                    <button class="btn" type="button">Scan for Check-in</button>
+                    <button class="btn secondary" type="button">Scan for Check-out</button>
+                </div>
+                <p class="scan-note">Note: Please scan at the start and end of your shift to keep your attendance accurate.</p>
+            </section>
+            <section class="card">
+                <div class="card-header">
+                    <h2 class="card-title">My Check-in / Check-out History</h2>
+                    <p class="card-sub">Your recent activity on any stall</p>
+                </div>
+                <table class="simple-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Action</th>
+                            <th>Stall</th>
+                            <th>Zone</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="5" style="text-align: center;">Loading history...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+        <div class="right-column">
+            <section class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Stall Status</h2>
+                    <p class="card-sub">Today's stall activity</p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">Today's Check-ins</div>
+                        <div class="stat-value">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Today's Check-outs</div>
+                        <div class="stat-value">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Current Status</div>
+                        <div class="stat-value">---</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Zone</div>
+                        <div class="stat-value">---</div>
+                    </div>
+                </div>
+            </section>
+            <section class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Maintenance & Issues</h2>
+                    <p class="card-sub">Issues related to your stall</p>
+                </div>
+                <ul class="logs-list" id="maintenanceLogs">
+                    <li style="color: var(--muted); font-size: 0.85rem;">No active maintenance issues</li>
+                </ul>
+                <div style="font-size:0.85rem;color:var(--muted);margin-top:8px;">
+                    For urgent support, contact: Helpdesk +91-98765-43210 or email support@svsp.in
+                </div>
+            </section>
+            <section class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Available Stalls</h2>
+                    <p class="card-sub">Stalls currently free for allocation</p>
+                </div>
+                <table class="simple-table" id="availableStallsTable">
+                    <thead>
+                        <tr>
+                            <th>Stall</th>
+                            <th>Type</th>
+                            <th>Equipment</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="4" style="text-align: center;">Loading stalls...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </main>
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings | Smart Vendor Stall Portal</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .settings-container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 40px;
+        }
+        .settings-sidebar {
+            background: #fff;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            padding: 15px;
+            height: fit-content;
+        }
+        .settings-nav-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 18px;
+            border-radius: 12px;
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 5px;
+            transition: all 0.2s;
+        }
+        .settings-nav-item:hover {
+            background: #f5f7fb;
+        }
+        .settings-nav-item.active {
+            background: var(--primary);
+            color: #fff;
+        }
+        .settings-content {
+            background: #fff;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            padding: 35px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: #fafbfc;
+        }
+        .toggle-switch {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .toggle-switch:last-child {
+            border-bottom: none;
+        }
+        @media (max-width: 800px) {
+            .settings-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-left">
+            <a href="index.html" style="text-decoration: none; font-size: 0.9rem; color: var(--muted); margin-right: 15px;">&larr; Home</a>
+            <span class="topbar-title">Settings</span>
+        </div>
+        <div class="topbar-right">
+            <div class="topbar-info">
+                <span class="info-pill">Zone: ---</span>
+                <span class="info-pill">Emp ID: ---</span>
+            </div>
+            <div class="profile-dropdown">
+                <div class="profile-avatar" id="profileAvatar">
+                    <img src="profile.png" alt="User Profile" />
+                </div>
+                <div class="dropdown-menu" id="profileMenu">
+                    <a href="profile.html">Profile View</a>
+                    <a href="settings.html?tab=account">Account Management</a>
+                    <a href="settings.html?tab=notifications">Notifications</a>
+                    <a href="settings.html?tab=privacy">Privacy & Data</a>
+                    <a href="settings.html?tab=security">Security</a>
+                    <a href="help-center.html">Help Center</a>
+                    <a href="legal.html?type=tos">Terms of Services</a>
+                    <a href="legal.html?type=privacy">Privacy Policy</a>
+                    <a href="legal.html?type=about">About</a>
+                    <a href="#" id="logoutLink">Log Out</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="settings-container">
+        <aside class="settings-sidebar">
+            <a href="?tab=account" class="settings-nav-item" id="nav-account">Account Management</a>
+            <a href="?tab=notifications" class="settings-nav-item" id="nav-notifications">Notifications</a>
+            <a href="?tab=privacy" class="settings-nav-item" id="nav-privacy">Privacy & Data</a>
+            <a href="?tab=security" class="settings-nav-item" id="nav-security">Security</a>
+        </aside>
+
+        <main class="settings-content">
+            <div id="content-account" class="tab-content" style="display:none;">
+                <h2>Account Management</h2>
+                <p class="subtext">Update your account settings and preference</p>
+                <form>
+                    <div class="form-group">
+                        <label>Preferred Name</label>
+                        <input type="text" value="Shree Snacks" placeholder="Enter business name">
+                    </div>
+                    <div class="form-group">
+                        <label>Primary Language</label>
+                        <select>
+                            <option>English</option>
+                            <option>Hindi</option>
+                            <option>Gujarati</option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn">Save Changes</button>
+                </form>
+            </div>
+
+            <div id="content-notifications" class="tab-content" style="display:none;">
+                <h2>Notifications</h2>
+                <p class="subtext">Manage how you receive updates</p>
+                <div class="toggle-switch">
+                    <div>
+                        <div style="font-weight:700;">Email Notifications</div>
+                        <div style="font-size:0.85rem; color:var(--muted);">Receive shift updates via email</div>
+                    </div>
+                    <input type="checkbox" checked>
+                </div>
+                <div class="toggle-switch">
+                    <div>
+                        <div style="font-weight:700;">SMS Alerts</div>
+                        <div style="font-size:0.85rem; color:var(--muted);">Urgent stall alerts via SMS</div>
+                    </div>
+                    <input type="checkbox" checked>
+                </div>
+            </div>
+
+            <div id="content-privacy" class="tab-content" style="display:none;">
+                <h2>Privacy & Data</h2>
+                <p class="subtext">Control your data visibility</p>
+                <div class="toggle-switch">
+                    <div>
+                        <div style="font-weight:700;">Public Profile</div>
+                        <div style="font-size:0.85rem; color:var(--muted);">Allow others in your zone to see your business name</div>
+                    </div>
+                    <input type="checkbox" checked>
+                </div>
+                <div style="margin-top:30px;">
+                    <button class="btn secondary" style="color:#d9534f; border-color:#d9534f;">Request Data Deletion</button>
+                </div>
+            </div>
+
+            <div id="content-security" class="tab-content" style="display:none;">
+                <h2>Security</h2>
+                <p class="subtext">Protect your account</p>
+                <div class="form-group">
+                    <label>Current Password</label>
+                    <input type="password">
+                </div>
+                <div class="form-group">
+                    <label>New Password</label>
+                    <input type="password">
+                </div>
+                <button type="button" class="btn">Update Password</button>
+                <hr style="margin:30px 0; border:0; border-top:1px solid var(--border);">
+                <div class="toggle-switch">
+                    <div>
+                        <div style="font-weight:700;">Two-Factor Authentication</div>
+                        <div style="font-size:0.85rem; color:var(--muted);">Add an extra layer of security</div>
+                    </div>
+                    <button class="btn secondary">Enable</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const params = new URLSearchParams(window.location.search);
+            const tab = params.get("tab") || "account";
+            
+            // Hide all
+            document.querySelectorAll(".tab-content").forEach(c => c.style.display = "none");
+            document.querySelectorAll(".settings-nav-item").forEach(n => n.classList.remove("active"));
+            
+            // Show selected
+            const activeContent = document.getElementById(`content-${tab}`);
+            const activeNav = document.getElementById(`nav-${tab}`);
+            
+            if (activeContent) activeContent.style.display = "block";
+            if (activeNav) activeNav.classList.add("active");
+        });
+    </script>
+</body>
+</html>

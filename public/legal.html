@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal & Information | Smart Vendor Stall Portal</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .legal-container {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+        .legal-content {
+            background: #fff;
+            padding: 50px;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            line-height: 1.8;
+            color: var(--text);
+        }
+        .legal-content h1 {
+            color: var(--primary);
+            margin-bottom: 30px;
+            font-size: 2.2rem;
+        }
+        .legal-content h2 {
+            margin-top: 40px;
+            color: var(--primary);
+            font-size: 1.4rem;
+        }
+        .legal-content p {
+            margin-bottom: 20px;
+        }
+        .last-updated {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-left">
+            <a href="index.html" style="text-decoration: none; font-size: 0.9rem; color: var(--muted); margin-right: 15px;">&larr; Home</a>
+            <span class="topbar-title">Information</span>
+        </div>
+        <div class="topbar-right">
+            <div class="topbar-info">
+                <span class="info-pill">Zone: ---</span>
+                <span class="info-pill">Emp ID: ---</span>
+            </div>
+            <div class="profile-dropdown">
+                <div class="profile-avatar" id="profileAvatar">
+                    <img src="profile.png" alt="User Profile" />
+                </div>
+                <div class="dropdown-menu" id="profileMenu">
+                    <a href="profile.html">Profile View</a>
+                    <a href="settings.html?tab=account">Account Management</a>
+                    <a href="settings.html?tab=notifications">Notifications</a>
+                    <a href="settings.html?tab=privacy">Privacy & Data</a>
+                    <a href="settings.html?tab=security">Security</a>
+                    <a href="help-center.html">Help Center</a>
+                    <a href="legal.html?type=tos">Terms of Services</a>
+                    <a href="legal.html?type=privacy">Privacy Policy</a>
+                    <a href="legal.html?type=about">About</a>
+                    <a href="#" id="logoutLink">Log Out</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="legal-container">
+        <div class="legal-content" id="legalContent">
+            <!-- Content will be injected based on tab -->
+            <h1>Loading...</h1>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        const content = {
+            tos: {
+                title: "Terms of Services",
+                body: `
+                    <p class="last-updated">Last Updated: January 2026</p>
+                    <p>Welcome to the Smart Vendor Stall Portal. By accessing or using our services, you agree to be bound by these terms.</p>
+                    <h2>1. Use of Portal</h2>
+                    <p>The portal is intended for official use by registered vendors and employees only. Unauthorized access is strictly prohibited.</p>
+                    <h2>2. Stall Allocation</h2>
+                    <p>Stalls are allocated based on availability and administrative discretion. Users must adhere to the assigned zone and shift timings.</p>
+                    <h2>3. Attendance & Scanning</h2>
+                    <p>Accurate attendance is the responsibility of the vendor. Failure to scan in/out correctly may result in loss of shift credit or stall revocation.</p>
+                    <h2>4. Equipment Maintenance</h2>
+                    <p>Users are responsible for the equipment provided in their stalls. Any damage or malfunction must be reported immediately.</p>
+                `
+            },
+            privacy: {
+                title: "Privacy Policy",
+                body: `
+                    <p class="last-updated">Last Updated: January 2026</p>
+                    <p>Your privacy is important to us. This policy explains how we collect, use, and protect your personal information.</p>
+                    <h2>Data Collection</h2>
+                    <p>We collect personal details during registration, including name, contact info, and identification documents (Aadhaar/PAN) for verification purposes.</p>
+                    <h2>Usage Tracking</h2>
+                    <p>We track check-in and check-out times to manage stall occupancy and generate attendance reports.</p>
+                    <h2>Data Protection</h2>
+                    <p>All sensitive documents are encrypted and stored securely. We do not share your personal identification data with third parties except as required by law.</p>
+                `
+            },
+            about: {
+                title: "About SVSP",
+                body: `
+                    <h1>Smart Vendor Stall Portal</h1>
+                    <p>The Smart Vendor Stall Portal (SVSP) is a modern solution designed to streamline the management of vendor stalls in large event zones and marketplaces.</p>
+                    <h2>Our Mission</h2>
+                    <p>To empower small business owners and vendors with digital tools for efficient stall management, attendance tracking, and resource allocation.</p>
+                    <h2>System Version</h2>
+                    <p>v1.0.0 (Stable Release)<br>Build: 2026.05.11</p>
+                    <hr style="margin:40px 0; border:0; border-top:1px solid var(--border);">
+                    <p style="text-align:center; color:var(--muted);">&copy; 2026 Smart Vendor Stall Portal Team. All rights reserved.</p>
+                `
+            }
+        };
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const params = new URLSearchParams(window.location.search);
+            const type = params.get("type") || "tos";
+            const data = content[type] || content.tos;
+            
+            document.title = `${data.title} | SVSP`;
+            document.getElementById("legalContent").innerHTML = `<h1>${data.title}</h1>${data.body}`;
+        });
+    </script>
+</body>
+</html>

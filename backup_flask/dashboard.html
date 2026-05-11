@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard | Smart Vendor Stall Portal</title>
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&f[]=cabinet-grotesk@500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body class="dashboard-body">
+  <a class="skip-link" href="#dashboard-main">Skip to content</a>
+  <header class="dashboard-header">
+    <div>
+      <p class="eyebrow">Authenticated area</p>
+      <h1>Welcome, {{ employee_name }}</h1>
+    </div>
+    <nav class="dashboard-actions" aria-label="Dashboard actions">
+      <a href="{{ url_for('index') }}" class="btn btn-secondary">Home</a>
+      <a href="{{ url_for('logout') }}" class="btn btn-primary">Logout</a>
+    </nav>
+  </header>
+
+  <main id="dashboard-main" class="dashboard-grid">
+    <section class="stat-card">
+      <p>Total registered employees</p>
+      <strong>{{ total_employees }}</strong>
+    </section>
+    <section class="stat-card">
+      <p>Your employee ID</p>
+      <strong>{{ employee.employee_id }}</strong>
+    </section>
+    <section class="profile-card full-width">
+      <h2>Employee profile</h2>
+      <div class="profile-grid">
+        <div><span>Name</span><strong>{{ employee.first_name }} {{ employee.last_name }}</strong></div>
+        <div><span>Email</span><strong>{{ employee.email }}</strong></div>
+        <div><span>Preferred shift</span><strong>{{ employee.preferred_shift }}</strong></div>
+        <div><span>Preferred zone</span><strong>{{ employee.preferred_zone }}</strong></div>
+        <div><span>Staff size</span><strong>{{ employee.staff_size }}</strong></div>
+        <div><span>Joined</span><strong>{{ employee.created_at }}</strong></div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Vendor Stall Portal</title>
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&f[]=cabinet-grotesk@500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="topbar">
+    <div class="brand">
+            <div class="brand-mark" aria-hidden="true">
+        <img src="Logo.png" alt="Logo" style="height: 48px; width: auto; object-fit: contain;">
+      </div>
+      <div>
+        <p class="eyebrow">Anti Gravity Project</p>
+        <h1>Smart Vendor Stall Portal</h1>
+      </div>
+    </div>
+    <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch theme">◐</button>
+  </header>
+
+  <main id="main-content" class="shell">
+    <section class="hero-panel">
+      <div class="hero-copy">
+        <p class="section-tag">Centralized operations</p>
+        <h2>Register vendors, manage staff, and control zone-based access from one portal.</h2>
+        <p class="lead">This full-stack version converts your original static page into a working web app with Flask routes for employee signup, login, dashboard access, file upload, and stored records.</p>
+        <ul class="feature-list" role="list">
+          <li>Employee signup with PDF ID proof upload.</li>
+          <li>Login connected to backend session handling.</li>
+          <li>Dashboard with profile summary after authentication.</li>
+        </ul>
+      </div>
+
+      <div class="auth-card">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="flash flash-{{ category }}">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <div class="toggle" role="tablist" aria-label="Authentication panels">
+          <button id="loginTab" class="active" type="button" data-target="loginPanel" role="tab" aria-selected="true">Login</button>
+          <button id="signupTab" type="button" data-target="signupPanel" role="tab" aria-selected="false">Sign up</button>
+        </div>
+
+        <section id="loginPanel" class="panel active" role="tabpanel">
+          <h3>Employee login</h3>
+          <p class="subtext">Use the generated Employee ID and password to access the portal dashboard.</p>
+          <form action="{{ url_for('login') }}" method="post" class="form-grid">
+            <div>
+              <label for="employee_id">Employee ID</label>
+              <input type="text" id="employee_id" name="employee_id" placeholder="EMP0001" required />
+            </div>
+            <div>
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" placeholder="Enter password" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+          </form>
+        </section>
+
+        <section id="signupPanel" class="panel" role="tabpanel" aria-hidden="true">
+          <h3>Employee registration</h3>
+          <p class="subtext">Create a staff account and upload ID proof to store a complete employee record.</p>
+          <form action="{{ url_for('register') }}" method="post" enctype="multipart/form-data" class="form-grid two-col">
+            <div>
+              <label for="firstName">First Name</label>
+              <input type="text" id="firstName" name="firstName" required />
+            </div>
+            <div>
+              <label for="middleName">Middle Name</label>
+              <input type="text" id="middleName" name="middleName" />
+            </div>
+            <div>
+              <label for="lastName">Last Name</label>
+              <input type="text" id="lastName" name="lastName" required />
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+            <div>
+              <label for="dob">Date of Birth</label>
+              <input type="date" id="dob" name="dob" required />
+            </div>
+            <div>
+              <label for="idType">ID Type</label>
+              <select id="idType" name="idType" required>
+                <option value="">Select ID Type</option>
+                <option value="aadhaar">Aadhaar Card</option>
+                <option value="pan">PAN Card</option>
+              </select>
+            </div>
+            <div>
+              <label for="idNumber">ID Number</label>
+              <input type="text" id="idNumber" name="idNumber" required />
+            </div>
+            <div>
+              <label for="preferredShift">Preferred Shift</label>
+              <select id="preferredShift" name="preferredShift" required>
+                <option value="">Select Shift</option>
+                <option value="morning">Morning</option>
+                <option value="evening">Evening</option>
+                <option value="both">Both</option>
+              </select>
+            </div>
+            <div>
+              <label for="preferredZones">Preferred Zone</label>
+              <select id="preferredZones" name="preferredZones" required>
+                <option value="">Select Zone</option>
+                <option value="zone-a">Zone A</option>
+                <option value="zone-b">Zone B</option>
+                <option value="zone-c">Zone C</option>
+                <option value="zone-d">Zone D</option>
+              </select>
+            </div>
+            <div>
+              <label for="staffSize">Staff Size</label>
+              <input type="number" id="staffSize" name="staffSize" min="1" />
+            </div>
+            <div class="full-span">
+              <label for="workDescription">Work Description</label>
+              <textarea id="workDescription" name="workDescription" rows="4" maxlength="500"></textarea>
+            </div>
+            <div class="full-span">
+              <label for="idProof">Upload ID Proof (PDF only)</label>
+              <input type="file" id="idProof" name="idProof" accept="application/pdf" required />
+            </div>
+            <div class="full-span">
+              <label for="signupPassword">Password</label>
+              <input type="text" id="signupPassword" name="password" placeholder="Leave blank to use vendor123" />
+            </div>
+            <div class="full-span">
+              <button type="submit" class="btn btn-primary">Register account</button>
+            </div>
+          </form>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+</body>
+</html>

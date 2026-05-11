@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile | Smart Vendor Stall Portal</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .profile-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            background: #fff;
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .profile-large-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--border);
+            padding: 10px;
+            background: #fff;
+        }
+        .profile-large-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .profile-name-info h1 {
+            margin: 0;
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+        .profile-name-info p {
+            margin: 5px 0 0;
+            color: var(--muted);
+            font-size: 1rem;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .info-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .info-value {
+            font-size: 1rem;
+            color: var(--text);
+            padding: 10px 15px;
+            background: #f9fafb;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-left">
+            <a href="index.html" style="text-decoration: none; font-size: 0.9rem; color: var(--muted); margin-right: 15px;">&larr; Home</a>
+            <span class="topbar-title">Profile View</span>
+        </div>
+        <div class="topbar-right">
+            <div class="topbar-info">
+                <span class="info-pill">Zone: ---</span>
+                <span class="info-pill">Emp ID: ---</span>
+            </div>
+            <div class="profile-dropdown">
+                <div class="profile-avatar" id="profileAvatar">
+                    <img src="profile.png" alt="User Profile" />
+                </div>
+                <div class="dropdown-menu" id="profileMenu">
+                    <a href="profile.html">Profile View</a>
+                    <a href="settings.html?tab=account">Account Management</a>
+                    <a href="settings.html?tab=notifications">Notifications</a>
+                    <a href="settings.html?tab=privacy">Privacy & Data</a>
+                    <a href="settings.html?tab=security">Security</a>
+                    <a href="help-center.html">Help Center</a>
+                    <a href="legal.html?type=tos">Terms of Services</a>
+                    <a href="legal.html?type=privacy">Privacy Policy</a>
+                    <a href="legal.html?type=about">About</a>
+                    <a href="#" id="logoutLink">Log Out</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="profile-container">
+        <a href="user-dashboard.html" class="back-link">&larr; Back to Dashboard</a>
+        
+        <div class="profile-header">
+            <div class="profile-large-avatar">
+                <img src="profile.png" alt="User Profile">
+            </div>
+            <div class="profile-name-info">
+                <h1 id="profName">Loading...</h1>
+                <p id="profRole">Vendor · Zone A</p>
+                <div style="margin-top: 10px;">
+                    <span class="btn" style="padding: 5px 15px; font-size: 0.8rem; background: #e8f5e9; color: #2e7d32;">Verified Account</span>
+                </div>
+            </div>
+        </div>
+
+        <section class="card">
+            <div class="card-header">
+                <h2 class="card-title">Personal Information</h2>
+                <p class="card-sub">Your official registration details</p>
+            </div>
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="info-label">Full Name</span>
+                    <span class="info-value" id="valName">---</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Employee ID</span>
+                    <span class="info-value" id="valEmpId">---</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Email Address</span>
+                    <span class="info-value" id="valEmail">---</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Phone Number</span>
+                    <span class="info-value" id="valPhone">---</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">City / State</span>
+                    <span class="info-value" id="valLocation">---</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Business Category</span>
+                    <span class="info-value" id="valCategory">---</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="card-header">
+                <h2 class="card-title">Identification Documents</h2>
+                <p class="card-sub">Verified identity proofs</p>
+            </div>
+            <table class="simple-table">
+                <thead>
+                    <tr>
+                        <th>Document Type</th>
+                        <th>ID Number</th>
+                        <th>Status</th>
+                        <th>Uploaded On</th>
+                    </tr>
+                </thead>
+                <tbody id="docsTable">
+                    <tr>
+                        <td colspan="4" style="text-align:center;">Loading documents...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            fetchProfileData();
+        });
+
+        async function fetchProfileData() {
+            try {
+                const res = await fetch("/api/profile");
+                if (!res.ok) {
+                    window.location.href = "index.html";
+                    return;
+                }
+                const data = await res.json();
+                renderProfile(data);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        function renderProfile(data) {
+            document.getElementById("profName").textContent = data.name;
+            document.getElementById("profRole").textContent = `${data.businessCategory || 'Vendor'} · Zone ${data.zone}`;
+            
+            document.getElementById("valName").textContent = data.name;
+            document.getElementById("valEmpId").textContent = data.empId;
+            document.getElementById("valEmail").textContent = data.email;
+            document.getElementById("valPhone").textContent = data.phone || "---";
+            document.getElementById("valLocation").textContent = `${data.city || '---'}, ${data.state || '---'}`;
+            document.getElementById("valCategory").textContent = data.businessCategory || "---";
+
+            const docsBody = document.getElementById("docsTable");
+            if (data.docs && data.docs.length > 0) {
+                docsBody.innerHTML = data.docs.map(d => `
+                    <tr>
+                        <td>${d.type}</td>
+                        <td>${d.id}</td>
+                        <td><span style="color: #2e7d32; font-weight:700;">${d.status}</span></td>
+                        <td>${d.uploadedOn}</td>
+                    </tr>
+                `).join("");
+            } else {
+                docsBody.innerHTML = "<tr><td colspan='4' style='text-align:center; color:var(--muted);'>No documents found</td></tr>";
+            }
+        }
+    </script>
+</body>
+</html>

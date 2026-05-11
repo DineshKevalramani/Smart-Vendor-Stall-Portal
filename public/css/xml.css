@@ -1,0 +1,133 @@
+main.dashboard {
+    max-width: 1200px;
+    margin: 22px auto;
+    padding: 0 16px 32px;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 20px;
+}
+
+.topbar-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.9rem;
+    color: var(--muted);
+}
+
+.info-pill {
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: #f7f9fc;
+}
+
+.logs-list {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0;
+    font-size: 0.88rem;
+}
+
+.logs-list li {
+    padding: 7px 0;
+    border-bottom: 1px dashed var(--border);
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.logs-list li:last-child {
+    border-bottom: none;
+}
+
+.log-label {
+    color: var(--muted);
+}
+
+.log-value {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.stall-card {
+    background: #f7f9fc;
+    border-radius: 14px;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    margin-top: 8px;
+    font-size: 0.9rem;
+}
+
+.stall-name {
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 4px;
+}
+
+.stall-meta {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 6px;
+}
+
+.stall-equipment-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-top: 6px;
+    margin-bottom: 4px;
+    color: var(--text);
+}
+
+.equipment-list {
+    list-style: disc;
+    padding-left: 18px;
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--muted);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.stat-card {
+    background: #f7f9fc;
+    border-radius: 14px;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 4px;
+}
+
+.stat-value {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.scan-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.scan-note {
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-top: 6px;
+}
+
+@media (max-width: 900px) {
+    main.dashboard {
+        grid-template-columns: 1fr;
+    }
+}
